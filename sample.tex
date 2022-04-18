@@ -672,6 +672,9 @@ y_{min} = 10,D = \{-3,-3,-3,0,2,3,3,5,5,5,14,14\}
     \draw[red] (3, 10) -- (2, 11);
     \draw[red] (2, 11) -- (0, 15);
     \draw[red] (0, 15) -- (-0.25, 16);
+    \pause
+    \draw[blue, <->] (3,0.2) -- (3,9.8);
+    \node [blue,right] at (3,5) {\Large ANS}; 
 \end{tikzpicture}
 \end{center}
 \end{frame}
@@ -680,10 +683,65 @@ y_{min} = 10,D = \{-3,-3,-3,0,2,3,3,5,5,5,14,14\}
 
 \section{Divide and Conquer Optimization}
 \begin{frame}[plain]{Divide and Conquer Optimization}
+\begin{block}{Equation}
+        $dp(i, j) =  \displaystyle\min_{k < j}\{dp(i-1, k)+ C(k, j)\}$ and $A(i, j) \leq A(i, j+1)$ where $A(i, j)$ is the smallest $k$ that gives optimal answer
+\end{block}
 \end{frame}
+
+\begin{frame}[plain]{Divide and Conquer Optimization}
+
+\end{frame}
+
+\begin{frame}[fragile, plain]{Divide and Conquer Optimization}
+\begin{examples}
+\begin{verbatim}
+void compute(int l, int r, int optl, int optr) {
+    if (l > r)
+        return;
+    int mid = (l + r) >> 1;
+    pair<long long, int> best = {LLONG_MAX, -1};
+    for (int k = optl; k <= min(mid, optr); k++) {
+        best = min(best, {(k ? dp_before[k - 1] : 0) + C(k, mid), k});
+    }
+    dp_cur[mid] = best.first;
+    int opt = best.second;
+    compute(l, mid - 1, optl, opt);
+    compute(mid + 1, r, opt, optr);
+}
+\end{verbatim}
+\end{examples}
+\end{frame}
+
+
 \section{Knuth Optimization}
 \begin{frame}[plain]{Knuth Optimization}
+\begin{block}{Equation}
+        $dp(i, j) =  \displaystyle\min_{i < k < j}\{dp(i, k)+dp(k, j)\} +  C(k, j)$ and $A(i, j-1) \leq A(i, j) \leq A(i+1, j)$ where $A(i, j)$ is the smallest $k$ that gives optimal answer
+\end{block}
 \end{frame}
+
+\begin{frame}[plain]{Knuth Optimization}
+
+\end{frame}
+
+\begin{frame}[fragile, plain]{Knuth Optimization}
+\begin{examples}
+\begin{verbatim}
+for (int len = 1; len <= n; ++len) {
+    for (int i = 1, j = len; j <= n; ++i, ++j) {
+        for (int k = opt[i][j-1]; k <= opt[i+1][j]; ++k) {
+            int val = dp[i][k] + dp[k][j] + c[i][j];
+            if (val < dp[i][j]) {
+                dp[i][j] = val;
+                opt[i][j] = k;
+            }
+        }
+    }
+}
+\end{verbatim}
+\end{examples}
+\end{frame}
+
 \section{Open and Close Interval Trick}
 \begin{frame}[plain]{Open and Close Interval Trick}
 \end{frame}
