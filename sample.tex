@@ -743,7 +743,44 @@ for (int len = 1; len <= n; ++len) {
 \end{frame}
 
 \section{Open and Close Interval Trick}
-\begin{frame}[plain]{Open and Close Interval Trick}
+\begin{frame}[plain, t]{Open and Close Interval Trick}
+
+{\LARGE 626F, Group Projects}
+
+There are $n$ students in a class working on group projects. The students will divide into groups (some students may be in groups alone), work on their independent pieces, and then discuss the results together. It takes the i-th student $a_i$ minutes to finish his/her independent piece.
+
+If students work at different paces, it can be frustrating for the faster students and stressful for the slower ones. In particular, the imbalance of a group is defined as the maximum $a_i$ in the group minus the minimum $a_i$ in the group. Note that a group containing a single student has an imbalance of 0. How many ways are there for the students to divide into groups so that the total imbalance of all groups is at most $k$?
+
+Two divisions are considered distinct if there exists a pair of students who work in the same group in one division but different groups in the other.
+\end{frame}
+
+\begin{frame}[plain, t]{Open and Close Interval Trick}
+Let $dp(i, j, k)$ be the number of ways such that when we inserted the first $i$ elements, there are $j$ open sets and the total imbalance till now is $k$.
+\end{frame}
+
+\begin{frame}[plain, t]{Open and Close Interval Trick}
+Let $dp(i, j, k)$ be the current state. the imbalance of the new state must be $v = k + j(a_{i+1} - a_i)$.
+
+1. We place the current number $a_i$ in its own group : Then, $dp(i+1, j, v) \leftarrow dp(i, j, k)$.
+\end{frame}
+\begin{frame}[plain, t]{Open and Close Interval Trick}
+Let $dp(i, j, k)$ be the current state. the imbalance of the new state must be $v = k + j(a_{i+1} - a_i)$.
+
+2. We place the current number ai in one of the open groups, but not close it : Then, $dp(i+1, j, v) \leftarrow j \cdot dp(i, j, k)$.
+\end{frame}
+\begin{frame}[plain, t]{Open and Close Interval Trick}
+Let $dp(i, j, k)$ be the current state. the imbalance of the new state must be $v = k + j(a_{i+1} - a_i)$.
+
+3. Open a new group with minimum = $a_i$ : Then, $dp(i+1, j+1, v) \leftarrow dp(i, j, k)$.
+\end{frame}
+\begin{frame}[plain, t]{Open and Close Interval Trick}
+Let $dp(i, j, k)$ be the current state. the imbalance of the new state must be $v = k + j(a_{i+1} - a_i)$.
+
+4. Close an open group by inserting $a_i$ in one of them and close it : Then, $dp(i+1, j-1, v) \leftarrow j \cdot dp(i, j, k)$.
+\end{frame}
+
+\begin{frame}[plain, t]{Open and Close Interval Trick}
+The answer can be found as $dp(n, 0, 0) + dp(n, 0, 1) + ... + dp(n, 0, k)$
 \end{frame}
 \section{Connected Component DP}
 \begin{frame}[plain]{Connected Component DP}
