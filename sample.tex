@@ -53,7 +53,7 @@
 \begin{frame}[plain]{Convex hull optimization}
     \begin{itemize}
         \begin{block}{Equation}
-        $dp(i) = \displaystyle\min_{j<i}\{dp(j)+B(j)\cdot A(i)\}$ which $B(j) \geq B(j+1)$ and $A(i) \leq A(i+1)$
+        $dp(i) = \displaystyle\min_{j<i}\{dp(j)+B(j)\cdot A(i)\}$ where $B(x) \geq B(x+1)$ and $A(x) \leq A(x+1)$ for all $x$
         \end{block}
         \item<2-> We want to optimize from $O(n^2)$ to $O(n)$
         \item<3-> $dp(j)+B(j)\cdot A(i)$
@@ -288,8 +288,10 @@ Algorithm query(x, p, l, r):
 \end{center}
 \end{frame}
 
+\newcommand{\probstatement}{You are given an array $A$ of $N$ integers. The cost of a subarray $[A_l, A_{l+1}, ..., A_r]$ is equal to $(A_l - A_r)^2$. Partition the array into $K$ subarrays having a minimum total cost.}
+
 \begin{frame}[t, plain, fragile]{Li Chao Tree}
-You are given an array $A$ of $N$ integers. The cost of a subarray $[A_l, A_{l+1}, ..., A_r]$ is equal to $(A_l - A_r)^2$. Partition the array in $K$ subarrays having a minimum total cost.
+\probstatement
 \begin{itemize}
     \item $1 \leq N \leq 10^4$
     \item $1 \leq K \leq \min(N, 100)$
@@ -300,7 +302,7 @@ You are given an array $A$ of $N$ integers. The cost of a subarray $[A_l, A_{l+1
 \end{frame}
 
 \begin{frame}[t, plain, fragile]{Li Chao Tree}
-You are given an array $A$ of $N$ integers. The cost of a subarray $[A_l, A_{l+1}, ..., A_r]$ is equal to $(A_l - A_r)^2$. Partition the array in $K$ subarrays having a minimum total cost.
+\probstatement
 \begin{itemize}
     \item We know that $(A_l - A_r)^2 = A_l^2 - 2A_lA_r + A_r^2$
     \pause
@@ -317,7 +319,7 @@ You are given an array $A$ of $N$ integers. The cost of a subarray $[A_l, A_{l+1
 \end{frame}
 
 \begin{frame}[t, plain, fragile]{Li Chao Tree}
-You are given an array $A$ of $N$ integers. The cost of a subarray $[A_l, A_{l+1}, ..., A_r]$ is equal to $(A_l - A_r)^2$. Partition the array in $K$ subarrays having a minimum total cost.
+\probstatement
 \begin{itemize}
     \item $dp(i, j) = \displaystyle\min_{i\leq k\leq j}\{(-2A_k)A_j + (dp(i-1, k-1) + A_k^2)\} + A_j^2$
     \pause
@@ -326,7 +328,7 @@ You are given an array $A$ of $N$ integers. The cost of a subarray $[A_l, A_{l+1
 \end{frame}
 
 \begin{frame}[t, plain, fragile]{Li Chao Tree}
-You are given an array $A$ of $N$ integers. The cost of a subarray $[A_l, A_{l+1}, ..., A_r]$ is equal to $(A_l - A_r)^2$. Partition the array in $K$ subarrays having a minimum total cost.
+\probstatement
 \begin{itemize}
     \item $dp(i, j) = \displaystyle\min_{i\leq k\leq j}\{(-2A_k)A_j + (dp(i-1, k-1) + A_k^2)\} + A_j^2$
 \end{itemize}
@@ -684,7 +686,7 @@ y_{min} = 10,D = \{-3,-3,-3,0,2,3,3,5,5,5,14,14\}
 \section{Divide and Conquer Optimization}
 \begin{frame}[plain]{Divide and Conquer Optimization}
 \begin{block}{Equation}
-        $dp(i, j) =  \displaystyle\min_{k < j}\{dp(i-1, k)+ C(k, j)\}$ and $A(i, j) \leq A(i, j+1)$ where $A(i, j)$ is the smallest $k$ that gives optimal answer
+        $dp(i, j) =  \displaystyle\min_{k < j}\{dp(i-1, k)+ C(k, j)\}$ and $A(i, j) \leq A(i, j+1)$ where $A(i, j)$ is the smallest $k$ that gives the optimal answer
 \end{block}
 \end{frame}
 
@@ -716,7 +718,7 @@ void compute(int l, int r, int optl, int optr) {
 \section{Knuth Optimization}
 \begin{frame}[plain]{Knuth Optimization}
 \begin{block}{Equation}
-        $dp(i, j) =  \displaystyle\min_{i < k < j}\{dp(i, k)+dp(k, j)\} +  C(k, j)$ and $A(i, j-1) \leq A(i, j) \leq A(i+1, j)$ where $A(i, j)$ is the smallest $k$ that gives optimal answer
+        $dp(i, j) =  \displaystyle\min_{i < k < j}\{dp(i, k)+dp(k, j)\} +  C(k, j)$ and $A(i, j-1) \leq A(i, j) \leq A(i+1, j)$ where $A(i, j)$ is the smallest $k$ that gives the optimal answer
 \end{block}
 \end{frame}
 
