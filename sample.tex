@@ -785,7 +785,23 @@ Let $dp(i, j, k)$ be the current state. the imbalance of the new state must be $
 The answer can be found as $dp(n, 0, 0) + dp(n, 0, 1) + ... + dp(n, 0, k)$
 \end{frame}
 \section{Connected Component DP}
-\begin{frame}[plain]{Connected Component DP}
+\begin{frame}[plain, t]{Connected Component DP}
+
+{\Large CEOI16 Kangaroo}
+
+Count the number of zig-zag permutations starting with $s$ and ending with $t$
+\end{frame}
+
+\begin{frame}[plain, t]{Connected Component DP}
+Let $dp(i, j)$ be the number of ways to insert the first $i$ elements such that there are $j$ components
+
+\begin{itemize}
+    \item<2-> if $i = 1$ then $dp(i, j) = 1$ only if $j = 1$ else $dp(i, j) = 0$
+    \item<3-> if $i = s$ or $i = t$, then $dp(i, j) = dp(i-1, j-1) + dp(i-1, j)$
+    \item<4-> Let $v$ = the number of ways to add a new component = $j - (i > s) - (i > t)$
+    \item<4-> $dp(i, j) = dp(i-1, j+1) \cdot j + dp(i-1, j-1) \cdot v$
+    \end{itemize}
+
 \end{frame}
 \section{Sum of Subset DP}
 \begin{frame}[plain]{Sum of Subset DP}
